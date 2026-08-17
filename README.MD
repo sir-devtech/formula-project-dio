@@ -1,81 +1,98 @@
-<div align="center">
+# Minimal API da Fórmula 1
 
-  <img src="./.github/assets/blue-saiyan-bg.png" alt="Logo" height="200">
-  <h1 align="center"><strong>NODE BOILERPLATE - BLUE EDITION</strong></h1>
-  <p align="center">
-	  Don't start a new Node project from zero!<br> Use this simple <b>Nodejs</b> boilerplate with pre-configured <b>Typescript</b> in a modern way.
-  </p>
+Projeto do lab **Criando uma Minimal API da Fórmula 1 com Node.js e Fastify**, da DIO.
 
-</div>
+A API devolve dados de equipes e pilotos em JSON, usando Node.js, TypeScript e Fastify.
 
-<br />
+## Tecnologias
 
-  <!-- Badges -->
-<div align="center">
-  
-  [![TypeScript version][ts-badge]][typescript-5-4]
-  [![Node.js version][nodejs-badge]][nodejs]
+- Node.js
+- TypeScript
+- Fastify
+- @fastify/cors
 
-</div>
+Baseado no boilerplate [node-blue-boilerplate](https://github.com/felipeAguiarCode/node-blue-boilerplate).
 
-# 🚀 Technologies
+## Como rodar
 
-This code source was developed with the following items:
-
-### 📦 Dependencies
-
-- [typescript][typescript-npm] - Superset for application scale JavaScript development
-- [tsx][tsx-npm] - TypeScript Execute (tsx): Enable Node.js to run TypeScript
-- [tsup][tsup-npm] - Bundle your TypeScript library with no config, powered by esbuild
-- [@types/node][@types/node-npm] - type definitions for node
-
-### 📄 Files
-
-- `.gitignore` - Ignore folders like node_modules
-- `.env` - Enviroment variables
-- `tsconfig.json` - Typescript configure Options
-
-### ⚡ Scripts
-
-- `npm run dist`: Compiles TypeScript files to JavaScript in the dist directory.
-- `npm run start:dev`: Runs the server in development mode with environment variables loaded from the .env file.
-- `npm run start:watch`: Runs the server in development mode with support for automatic reload on file changes.
-- `npm run start:dist`: Compiles the project and runs the compiled version from the dist directory.
-
-# 👨‍💻 How To Use
-
-click in **[Use this template]** OR
-
-To clone and run this application, you'll need [Git](https://git-scm.com), [Node.js v20+](https://nodejs.org/en/) + [NPM v10+](https://nodejs.org/en/) installed on your computer. From your command line:
+Pré-requisitos: Node.js 20+ e npm.
 
 ```bash
-# Clone this repository
-$ git clone https://github.com/felipeAguiarCode/node-blue-boilerplate
+# clonar o repositório
+git clone https://github.com/sir-devtech/formula-project-dio.git
 
-# Go into the repository
-$ cd node-blue-boilerplate
+# entrar na pasta
+cd formula-project-dio
 
-# Install dependencies
-$ npm install
+# instalar dependências
+npm install
+
+# iniciar o servidor
+npm run start:dev
 ```
 
-## Author
+O servidor sobe em `http://localhost:3333`.
 
-| [<img src="https://avatars3.githubusercontent.com/u/37452836?s=96&v=4"><br><sub>Felipe Aguiar</sub>](https://github.com/felipeAguiarCode) |
-| :---------------------------------------------------------------------------------------------------------------------------------------: |
-|                                            [Linkedin](www.linkedin.com/in/felipe-aguiar-exe/)                                             |
+## Endpoints
 
-# Credits
+| Método | Rota | Descrição |
+| --- | --- | --- |
+| GET | `/teams` | Lista as equipes |
+| GET | `/drivers` | Lista os pilotos |
+| GET | `/drivers/:id` | Busca um piloto pelo id |
 
-icons by [Pino Lamanna][dribble-icon]
+### Exemplos
 
-[typescript]: https://www.typescriptlang.org/
-[typescript-5-4]: https://www.typescriptlang.org/
-[ts-badge]: https://img.shields.io/badge/TypeScript-5.4-blue.svg
-[nodejs-badge]: https://img.shields.io/badge/Node.js->=%2020.00-blue.svg
-[nodejs]: https://nodejs.org/
-[dribble-icon]: https://dribbble.com/Schakalwal
-[typescript-npm]: https://www.npmjs.com/package/typescript
-[tsx-npm]: https://www.npmjs.com/package/tsx
-[tsup-npm]: https://www.npmjs.com/package/tsup
-[@types/node-npm]: https://www.npmjs.com/package/@types/node
+`GET http://localhost:3333/teams`
+
+```json
+{
+  "teams": [
+    { "id": 1, "name": "McLaren", "base": "Woking, United Kingdom" }
+  ]
+}
+```
+
+`GET http://localhost:3333/drivers`
+
+```json
+{
+  "drivers": [
+    { "id": 1, "name": "Max Verstappen", "team": "Red Bull Racing" }
+  ]
+}
+```
+
+`GET http://localhost:3333/drivers/1`
+
+```json
+{
+  "driver": { "id": 1, "name": "Max Verstappen", "team": "Red Bull Racing" }
+}
+```
+
+Se o id não existir, a API responde `404` com `{ "message": "Driver Not Found" }`.
+
+## O que foi feito neste lab
+
+1. Usei o boilerplate com TypeScript já configurado.
+2. Instalei o Fastify (`npm i fastify`).
+3. Criei o servidor em `src/server.ts` na porta 3333.
+4. Criei os endpoints `/teams` e `/drivers`.
+5. Implementei o filtro de piloto em `/drivers/:id`.
+6. Incrementei os dados das equipes e dos pilotos.
+7. Habilitei CORS com `@fastify/cors`.
+
+## Links
+
+- Repositório deste projeto: https://github.com/sir-devtech/formula-project-dio
+- Boilerplate usado: https://github.com/felipeAguiarCode/node-blue-boilerplate
+- Referência do lab: https://github.com/digitalinnovationone/node-formula-1
+- Fastify: https://fastify.dev/
+
+## Scripts
+
+- `npm run start:dev`: sobe o servidor em modo desenvolvimento
+- `npm run start:watch`: sobe o servidor recarregando ao salvar
+- `npm run dist`: gera o build em JavaScript
+- `npm run start:dist`: gera o build e executa a versão compilada
